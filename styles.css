@@ -1,0 +1,21 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+#stacker-game table {
+  border: 1px solid white;
+  border-spacing: 2px 2px;
+  border-collapse: separate;
+  margin: 0 auto;
+}
+#stacker-game td {
+  width: 32px;
+  height: 32px;
+  border: 1% solid black;
+  padding: 0;
+  margin: 1px;
+}
+.filled {
+  background-color: rgb(51, 160, 255);
+}
