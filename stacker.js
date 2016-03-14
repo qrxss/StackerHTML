@@ -62,6 +62,7 @@ function StackerGame() {
     setInterval(function() {game.onStep()}, 1000/60);
     window.addEventListener("keydown", function() {game.onKeyPress()});
     window.addEventListener("mousedown", function() {game.onMouseDown()});
+    window.addEventListener("touchstart", function() {game.onTouchStart()});
   };
   
   
@@ -175,6 +176,19 @@ function StackerGame() {
   
   
   /**
+   * Handles touch screen device touch
+   */
+  this.onTouchStart = function(e) {
+    if (this.running) {
+      this.onSpacePress();
+    } else {
+      this.onEnterPress();
+    }
+  }
+  
+  
+  
+  /**
    * Handles spacebar presses
    */
   this.onSpacePress = function() {
@@ -183,7 +197,7 @@ function StackerGame() {
       // put blocks onto board
       var iEnd = (this.pos + this.blocks);
       for (i = this.pos; i < iEnd; i++) {
-        if (i >= 0 && i <= this.BOARD_WIDTH) {
+        if (i >= 0 && i < this.BOARD_WIDTH) {
           this.board[this.level][i] = 1;
         } else {
           this.blocks--;
