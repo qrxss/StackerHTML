@@ -4,7 +4,7 @@ function StackerGame() {
   this.BOARD_WIDTH = 7;
   this.BOARD_HEIGHT = 15;
   this.LIMIT_3 = 2;
-  this.LIMIT_2 = 8;
+  this.LIMIT_2 = 7;
   this.MIN_SPEED = (6/64);
   this.MAX_SPEED = (2/64);
   this.ANIMATION_TIME = 1.5 * 60;
@@ -60,9 +60,9 @@ function StackerGame() {
    */
   this.run = function() {
     setInterval(function() {game.onStep()}, 1000/60);
-    window.addEventListener("keydown", function() {game.onKeyPress()});
-    window.addEventListener("mousedown", function() {game.onMouseDown()});
-    window.addEventListener("touchstart", function() {game.onTouchStart()});
+    window.addEventListener("keydown", function(e) {game.onKeyPress(e)});
+    window.addEventListener("mousedown", function(e) {game.onMouseDown(e)});
+    window.addEventListener("touchstart", function(e) {game.onTouchStart(e)});
   };
   
   
@@ -143,15 +143,17 @@ function StackerGame() {
    * Handles keyboard press events
    */
   this.onKeyPress = function(e) {
-    e = e || window.event;
+    var e = e || window.event;
     
     switch (e.keyCode) {
       case 32:  // Space
         this.onSpacePress();
+        e.preventDefault();
         break;
         
       case 13:  // Enter/return
         this.onEnterPress();
+        e.preventDefault();
         break;
     }
   }
@@ -162,7 +164,7 @@ function StackerGame() {
    * Handles mouse press events
    */
   this.onMouseDown = function(e) {
-    e = e || window.event;
+    var e = e || window.event;
     
     if (e.button == 0) {
       if (this.running) {
