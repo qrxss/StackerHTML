@@ -61,8 +61,7 @@ function StackerGame() {
   this.run = function() {
     setInterval(function() {game.onStep()}, 1000/60);
     window.addEventListener("keydown", function(e) {game.onKeyPress(e)});
-    window.addEventListener("mousedown", function(e) {game.onMouseDown(e)});
-    window.addEventListener("touchstart", function(e) {game.onTouchStart(e)});
+    this.gameBoard.addEventListener("touchstart", function(e) {game.onTouchStart(e)});
   };
   
   
@@ -161,23 +160,6 @@ function StackerGame() {
   
   
   /**
-   * Handles mouse press events
-   */
-  this.onMouseDown = function(e) {
-    var e = e || window.event;
-    
-    if (e.button == 0) {
-      if (this.running) {
-        this.onSpacePress();
-      } else {
-        this.onEnterPress();
-      }
-    }
-  }
-  
-  
-  
-  /**
    * Handles touch screen device touch
    */
   this.onTouchStart = function(e) {
@@ -194,7 +176,10 @@ function StackerGame() {
    * Handles spacebar presses
    */
   this.onSpacePress = function() {
-    if (this.running && this.atimer == 0) {
+    if (!this.running) {
+      this.onEnterPress();
+
+    } else if (this.atimer == 0) {
     
       // put blocks onto board
       var iEnd = (this.pos + this.blocks);
