@@ -52,4 +52,5 @@ a {
 }
 .filled {
   background-color: rgb(51, 160, 255);
+ box-shadow: 120px 80px 40px 20px #0ff;
 }
